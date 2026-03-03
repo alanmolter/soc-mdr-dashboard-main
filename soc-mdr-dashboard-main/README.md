@@ -39,22 +39,41 @@ pip install pandas scikit-learn streamlit plotly requests
 
 ## ⚙️ Configuração (Segurança)
 
-Para utilizar a funcionalidade de consulta ao VirusTotal, é necessário configurar a chave de API de forma segura. Crie um arquivo `.streamlit/secrets.toml` na raiz do projeto:
+### 🔧 Ambiente Local
+
+Para utilizar a funcionalidade de consulta ao VirusTotal, é necessário configurar a chave de API de forma segura. Crie um arquivo `.streamlit/secrets.toml` dentro da pasta `SOC`:
 
 ```toml
-[secrets]
-VT_API_KEY = "SUA_CHAVE_API_AQUI"
+# .streamlit/secrets.toml (local)
+VT_API_KEY = "SUA_CHAVE_VIRUSTAL_AQUI"
 ```
+
+⚠️ **Importante:** Este arquivo está no `.gitignore` e nunca será enviado para o GitHub por questões de segurança.
+
+### ☁️ Streamlit Cloud (Deploy Remoto)
+
+1. Acesse seu app em [share.streamlit.io](https://share.streamlit.io)
+2. Clique no menu de 3 pontos (**⋮**) → **Edit secrets**
+3. Adicione a sua chave:
+   ```toml
+   VT_API_KEY = "sua_chave_api_aqui"
+   ```
+4. Salve as alterações
+
+[📖 Ver documentação oficial](https://docs.streamlit.io/deploy/streamlit-cloud/deploy-your-app#add-secrets)
 
 ## ▶️ Como Executar
 
-Para iniciar o dashboard completo:
+### Desenvolvimento Local
+
+Navegue até a pasta `SOC` e execute:
 
 ```bash
+cd SOC
 streamlit run dashattcompleto.py
 ```
 
-O dashboard estará acessível no seu navegador (geralmente em `http://localhost:8501`).
+O dashboard estará acessível em `http://localhost:8501`.
 
 ## 👨‍💻 Autor
 **Alan Molter** - Analista de Segurança / Desenvolvedor

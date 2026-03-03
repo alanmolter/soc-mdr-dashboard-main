@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from sklearn.ensemble import IsolationForest
 import plotly.express as px
+import os
 
 # ==============================================================================
 # 1. CONFIGURAÇÕES INICIAIS E SEGURANÇA
@@ -10,11 +11,21 @@ import plotly.express as px
 st.set_page_config(page_title="Redbelt - MDR Intelligence", layout="wide")
 
 # Uso de st.secrets para ocultar a API Key
+API_KEY = None
 try:
-    API_KEY = st.secrets["VT_API_KEY"]
-except KeyError:
-    st.error("Erro: API Key não encontrada no Secrets Management (.streamlit/secrets.toml)")
-    st.stop()
+    # Tenta carregar de st.secrets (desenvolvimento local ou Streamlit Cloud secrets)
+    API_KEY = st.secrets.get("VT_API_KEY")
+except:
+    pass
+
+# Se não encontrou em st.secrets, tenta variável de ambiente
+if not API_KEY:
+    API_KEY = os.getenv("VT_API_KEY")
+
+# Se ainda não encontrou, mostra aviso
+if not API_KEY:
+    st.warning("⚠️ VT_API_KEY não configurada. Configure via: https://docs.streamlit.io/deploy/streamlit-cloud/deploy-your-app#add-secrets")
+    API_KEY = "dummy_key"  # Permite app rodar sem VirusTotal
 
 # ==============================================================================
 # 2. INTELIGÊNCIA DE AMEAÇAS E PROCESSAMENTO

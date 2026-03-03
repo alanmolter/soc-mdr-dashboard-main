@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 from sklearn.ensemble import IsolationForest
 import plotly.express as px
+import os
 
 # ==============================================================================
 # 1. SETUP E SEGURANÇA (Secure Coding & DevSecOps)
@@ -14,11 +15,21 @@ st.set_page_config(page_title="MDR - Advanced Analytics", layout="wide")
 
 # Gerenciamento de Segredos: O uso de st.secrets evita o "Hardcoded Credentials".
 # Jamais deixe chaves de API visíveis no código. Isso garante conformidade com a LGPD.
+API_KEY = None
 try:
-    API_KEY = st.secrets["VT_API_KEY"]
+    # Tenta carregar de st.secrets (desenvolvimento local ou Streamlit Cloud secrets)
+    API_KEY = st.secrets.get("VT_API_KEY")
 except:
-    st.error("Erro Crítico: Configure a VT_API_KEY no arquivo .streamlit/secrets.toml")
-    st.stop() # Interrompe a execução se a chave de segurança não for encontrada.
+    pass
+
+# Se não encontrou em st.secrets, tenta variável de ambiente
+if not API_KEY:
+    API_KEY = os.getenv("VT_API_KEY")
+
+# Se ainda não encontrou, mostra aviso
+if not API_KEY:
+    st.warning("⚠️ VT_API_KEY não configurada. Configure via: https://docs.streamlit.io/deploy/streamlit-cloud/deploy-your-app#add-secrets")
+    API_KEY = "dummy_key"  # Permite app rodar sem VirusTotal
 
 # ==============================================================================
 # 2. PROCESSAMENTO E DATA ENGINEERING
