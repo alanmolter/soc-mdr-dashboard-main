@@ -44,7 +44,8 @@ def get_ip_reputation(ip):
 
 @st.cache_data
 def process_security_data():
-    df = pd.read_json('firewall_logs.json')
+    json_path = os.path.join(os.path.dirname(__file__), 'firewall_logs.json')
+    df = pd.read_json(json_path)
     # Garantimos que o timestamp seja lido como data para o gráfico de linha
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     

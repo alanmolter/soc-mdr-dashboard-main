@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 import plotly.express as px
 
 # Configuração da Página
@@ -11,7 +12,8 @@ st.markdown(f"**Analista Responsável:** Alan Molter")
 # 1. Carregamento Vetorizado dos Dados
 @st.cache_data # Cache para não recarregar o arquivo a cada clique
 def load_data():
-    df = pd.read_json('firewall_logs.json')
+    json_path = os.path.join(os.path.dirname(__file__), 'firewall_logs.json')
+    df = pd.read_json(json_path)
     # Exemplo de Vetorização: Criando uma coluna de 'Risco Alto' de forma rápida
     df['is_high_risk'] = df['bytes_sent'] > 1000000
     return df

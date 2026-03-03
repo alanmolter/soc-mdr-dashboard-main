@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from sklearn.ensemble import IsolationForest
 
 # ==============================================================================
@@ -7,7 +8,8 @@ from sklearn.ensemble import IsolationForest
 
 # Lemos o arquivo JSON. O Pandas converte automaticamente o formato de texto
 # para um objeto DataFrame (uma tabela altamente otimizada em memória).
-df = pd.read_json('firewall_logs.json')
+json_path = os.path.join(os.path.dirname(__file__), 'firewall_logs.json')
+df = pd.read_json(json_path)
 
 # Aplicamos o 'Feature Engineering': Transformamos logs brutos em métricas de comportamento.
 # Usamos o 'Named Aggregation' (disponível desde o Pandas 0.25), que permite 

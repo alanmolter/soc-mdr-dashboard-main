@@ -40,7 +40,8 @@ if not API_KEY:
 @st.cache_data
 def load_and_process():
     # pd.read_json: Método nativo do Pandas para carregar arquivos JSON.
-    df = pd.read_json('firewall_logs.json')
+    json_path = os.path.join(os.path.dirname(__file__), 'firewall_logs.json')
+    df = pd.read_json(json_path)
     
     # pd.to_datetime: Converte strings de tempo em objetos datetime do Python.
     # Essencial para cálculos temporais e eixos cronológicos corretos.
