@@ -1,0 +1,11 @@
+# Bibliotecas Base
+streamlit>=1.30.0
+pandas>=2.1.0
+requests>=2.31.0
+
+# Inteligência e Modelagem
+scikit-learn>=1.3.0
+
+# Visualização de Dados e Estilização
+plotly>=5.18.0
+matplotlib>=3.8.0  
